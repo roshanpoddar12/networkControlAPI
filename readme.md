@@ -1,18 +1,25 @@
-## Linux Traffic Control
-Traffic control (tc) is a very useful Linux utility that gives you the ability to configure the kernel packet scheduler. If you are looking for reasons to mess with the kernel scheduler, here are a few: Firstly, it’s fun to play with the different options and become familiar of all of Linux’s features. In addition, you can utilize Linux’s helpful tools to simulate packet delay and loss for UDP or TCP applications, or limit the bandwidth usage of a particular service to simulate Internet connections (DSL, Cable, T1, etc).
-
 ## COMMAND TO  START THE SERVER
-sudo npm start
+- sudo npm start
+
+## TO DO
+Add in out and both
+change api name
+Add bandwidth
+
+sudo setcap cap_net_admin+ep /sbin/tc
 
 ## APIs
-POST     http/localhost:3000/api/v1/tc/execute-commands
-GET      http/localhost:3000/api/v1/tc/active-rules
-GET      http/localhost:3000/api/v1/tc/reset
+
+- POST     http/localhost:3000/api/v1/setNetworkParams/:intfName
+- GET      http/localhost:3000/api/v1/getNetworkParams/:intfName
+- GET      http/localhost:3000/api/v1/resetNetworkParams/:intfName
 
 ## POST PARAMETERS OPTIONs
-state:change/add
-delay:200ms #is how to add constant delay to an interface
-loss: 10%  # here is how to introduce a packet loss of 10%:
-corrupt:5%  # here is how to introduce a packet corruption  of 5%:
-duplicate:1% # # here is how to introduce duplicates 1% of the sent packet:
-jitter:10ms 
+
+- delay:200ms #is how to add constant delay to an interface
+- loss: 10%  # here is how to introduce a packet loss of 10%:
+- corrupt:5%  # here is how to introduce a packet corruption  of 5%:
+- duplicate:1% # # here is how to introduce duplicates 1% of the sent packet:
+- jitter:10ms 
+- directioin: incoming/outgoing
+- rate: 10 bps|Kbps|Mbps

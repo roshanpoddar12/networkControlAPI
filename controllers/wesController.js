@@ -1,19 +1,16 @@
 const { exec } = require("child_process");
-exports.latency =async (req,res,next)=>{
+const paramsController = require('./paramsController').command;
+
+exports.executingCommand =async (req,res,next)=>{
   let params='';
   const state = req.body.state;
   const tcParams = req.body;
   const entries = Object.entries(tcParams);
   for(const [key, value] of entries){
-    if(key !== 'state')
-      if(key === 'jitter')
-        params = `${params} ${value} distribution normal`;
-      else 
-        params = `${params} ${key} ${value}`;
-      
+        params = `${params} ${paramsController[key]} ${value}`;
   }
   
-    exec(` tc qdisc ${state} dev ${process.env.INTERFACE} root netem ${params}`, (error, stdout, stderr) => {
+    exec(` tcset ${req.params.intfName} --change ${params}`, (error, stdout, stderr) => {
       if (error) {
         res.status(400).json({
           status: 'error',
@@ -25,14 +22,14 @@ exports.latency =async (req,res,next)=>{
       }else{
         res.status(200).json({
           status: 'executed',
-          message: ` tc qdisc ${state} dev ${process.env.INTERFACE} root netem ${params}`,
+          message: `${req.params.intfName} ${params}`,
         });
       }
     });
 }
 
 exports.activeRules = (req,res,next)=>{
-  exec(` tc qdisc show dev ${process.env.INTERFACE}`, (error, stdout, stderr) => {
+  exec(` tcshow ${req.params.intfName}`, (error, stdout, stderr) => {
     if (error) {
       res.status(400).json({
         status: 'error',
@@ -44,17 +41,18 @@ exports.activeRules = (req,res,next)=>{
     }else{
       res.status(200).json({
         status: 'executed',
-        message: ` ${stdout} ${stderr}`,
+        message: JSON.parse(stdout),
+        //error: JSON.parse(stderr)
       });
     }
   });
 }
 exports.reset = (req,res,next)=>{
-  exec(` tc qdisc del dev ${process.env.INTERFACE} root`, (error, stdout, stderr) => {
+  exec(` tcdel ${req.params.intfName} --all`, (error, stdout, stderr) => {
     if (error) {
       res.status(400).json({
         status: 'error',
-        message: error.stack,
+        errMessage: (error.stack),
         errorCode: error.code,
         signalRecieved: error.signal
       });

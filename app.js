@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const tcRouter = require('./routes/tcRoutes');
+const wesRouter = require('./routes/wesRoutes');
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use((req,res,next)=>{
 
 
 // 3) ROUTES
-app.use('/api/v1/tc', tcRouter);
+app.use('/api/v1', wesRouter);
 
 app.all('*', (req, res, next) => {
   res.status(404).json({
