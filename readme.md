@@ -8,11 +8,17 @@ Add bandwidth
 
 sudo setcap cap_net_admin+ep /sbin/tc
 
+## INSTALLATION STEPS
+1.You should have node js above 10
+2.pip3 install tcconfig
+3.After opening project just do "npm install"
+4.npm start
+
 ## APIs
 
-- POST     http/localhost:3000/api/v1/setNetworkParams/:intfName
-- GET      http/localhost:3000/api/v1/getNetworkParams/:intfName
-- GET      http/localhost:3000/api/v1/resetNetworkParams/:intfName
+- POST     http://localhost:3000/api/v1/setNetworkParams/:intfName
+- GET      http://localhost:3000/api/v1/getNetworkParams/:intfName
+- GET      http://localhost:3000/api/v1/resetNetworkParams/:intfName
 
 ## POST PARAMETERS OPTIONs
 

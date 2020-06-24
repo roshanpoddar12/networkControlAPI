@@ -10,7 +10,7 @@ exports.executingCommand =async (req,res,next)=>{
         params = `${params} ${paramsController[key]} ${value}`;
   }
   
-    exec(` tcset ${req.params.intfName} --change ${params}`, (error, stdout, stderr) => {
+    exec(`tcset ${req.params.intfName} --change ${params}`, (error, stdout, stderr) => {
       if (error) {
         res.status(400).json({
           status: 'error',
