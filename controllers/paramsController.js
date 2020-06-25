@@ -4,5 +4,6 @@ exports.command = {
     loss:"--loss",
     direction:"--direction",
     duplicate:"--duplicate",
-    corrupt:"--corrupt"
+    corrupt:"--corrupt",
+    rate:"--rate"
 }

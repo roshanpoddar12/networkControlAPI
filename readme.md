@@ -1,18 +1,16 @@
-## COMMAND TO  START THE SERVER
-- sudo npm start
-
-## TO DO
-Add in out and both
-change api name
-Add bandwidth
-
-sudo setcap cap_net_admin+ep /sbin/tc
+## DEPENDENCIES
+-   Python 3.5+
+-   Node 10+
+-   Ubuntu/Debian: iproute2
+-   Fedora/RHEL: iproute-tc
 
 ## INSTALLATION STEPS
-1.You should have node js above 10
-2.pip3 install tcconfig
-3.After opening project just do "npm install"
-4.npm start
+- sudo pip3 install tcconfig
+- After opening project just do "npm install"
+
+## COMMAND TO  START THE SERVER
+-  sudo setcap cap_net_admin+ep /sbin/tc
+-  npm start
 
 ## APIs
 

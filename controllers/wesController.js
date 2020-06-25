@@ -9,8 +9,12 @@ exports.executingCommand =async (req,res,next)=>{
   for(const [key, value] of entries){
         params = `${params} ${paramsController[key]} ${value}`;
   }
+
+  exec(` tcdel ${req.params.intfName} --all`, (error, stdout, stderr) => {
+    console.log('Updated');
+  });
   
-    exec(`tcset ${req.params.intfName} --change ${params}`, (error, stdout, stderr) => {
+    exec(`sudo tcset ${req.params.intfName} --change ${params}`, (error, stdout, stderr) => {
       if (error) {
         res.status(400).json({
           status: 'error',
@@ -48,20 +52,13 @@ exports.activeRules = (req,res,next)=>{
   });
 }
 exports.reset = (req,res,next)=>{
+
   exec(` tcdel ${req.params.intfName} --all`, (error, stdout, stderr) => {
-    if (error) {
-      res.status(400).json({
-        status: 'error',
-        errMessage: (error.stack),
-        errorCode: error.code,
-        signalRecieved: error.signal
-      });
-      return ;
-    }else{
+    
       res.status(200).json({
         status: 'executed',
         message: `Deleted file`,
       });
-    }
+    
   });
 }
