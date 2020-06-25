@@ -9,11 +9,6 @@ exports.executingCommand =async (req,res,next)=>{
   for(const [key, value] of entries){
         params = `${params} ${paramsController[key]} ${value}`;
   }
-
-  exec(` tcdel ${req.params.intfName} --all`, (error, stdout, stderr) => {
-    console.log('Updated');
-  });
-  
     exec(`sudo tcset ${req.params.intfName} --change ${params}`, (error, stdout, stderr) => {
       if (error) {
         res.status(400).json({
